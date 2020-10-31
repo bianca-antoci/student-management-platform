@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { CoursesComponent } from './courses/courses.component';
 import { NbButtonModule, NbCardModule, NbLayoutModule } from '@nebular/theme';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [{
   path: '',
@@ -23,6 +25,7 @@ const routes: Routes = [{
 
 @NgModule({
   imports: [
+    CommonModule,
     RouterModule.forChild(routes),
     NbCardModule,
     NbButtonModule,

@@ -9,7 +9,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Login or Register',
-    icon: 'home-outline',
+    icon: 'log-in-outline',
     link: '/pages/dashboard',
   },
   {
