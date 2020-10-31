@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Courses',
     icon: 'home-outline',
-    link: '/pages/dashboard',
+    link: '/pages/courses',
     home: true,
   },
   {
