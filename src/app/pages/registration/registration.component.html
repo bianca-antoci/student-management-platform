@@ -2,13 +2,12 @@
     <h5>
         Your details
     </h5>
-    <br> {{formControls.email.errors | json}}
+    <br>
 
     <form [formGroup]="form" autocomplete="off">
         <div>
             <nb-select fullWidth shape="round" placeholder="Select Course" [(selected)]="selectedItem">
-                <nb-option value="0">CertHE in Skills</nb-option>
-                <nb-option value="1">Health and Social Care</nb-option>
+                <nb-option *ngFor="let item of firestoreCourses; let i = index" value="i">{{item.title}}</nb-option>
             </nb-select>
         </div>
         <br>

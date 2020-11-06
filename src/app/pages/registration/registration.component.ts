@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from "@angular/fire/firestore";
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: "ngx-registration",
@@ -8,23 +9,17 @@ import { AngularFirestore } from '@angular/fire/firestore';
   templateUrl: "./registration.component.html",
 })
 export class RegistrationComponent {
-  courses = [
-    {
-      title: "CertHE in Skills",
-      desc: "this is a test",
-    },
-    {
-      title: "Health and Social Care",
-      desc: "this is a test",
-    },
-  ];
 
   form: FormGroup;
   submitted = false;
   continueButtonDisabled = false;
   selectedItem = 1;
+  firestoreCourses = [];
 
-  constructor(private formBuilder: FormBuilder, private firestore: AngularFirestore) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private firestore: AngularFirestore
+  ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -34,7 +29,9 @@ export class RegistrationComponent {
       email: ["", [Validators.required, Validators.email]],
     });
 
-    this.getListOfCoursesFromFirebase();
+    this.getListOfCoursesFromFirebase().toPromise().then((results)=>{
+      this.firestoreCourses = results;
+    });
   }
 
   get formControls() {
@@ -42,7 +39,6 @@ export class RegistrationComponent {
   }
 
   onSubmitBtn() {
-   
     this.submitted = true;
 
     for (var i in this.form.controls) {
@@ -60,11 +56,21 @@ export class RegistrationComponent {
     this.continueButtonDisabled = false;
   }
 
-/**
- * This is the way we call Firebase to return the list of courses.
- *
- */
-  getListOfCoursesFromFirebase(){ 
-    return this.firestore.collection("courses") 
- }
+  /**
+   * This is the way we call Firebase to return the list of courses.
+   *
+   */
+  getListOfCoursesFromFirebase() {
+    let query = this.firestore.collection("courses");
+    return query.get().pipe(map((snapshot) => {
+        let items = [];
+        snapshot.docs.map((a) => {
+          const data = a.data();
+          const id = a.id;
+          items.push({ id, ...data });
+        });
+        return items;
+      })
+    );
+  }
 }
