@@ -23,7 +23,7 @@ const routes: Routes = [
         component: CoursesComponent,
       },
       {
-        path: "registration",
+        path: "register",
         component: RegistrationComponent,
       },
       {
