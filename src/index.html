@@ -10,9 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body>
+<body class="mat-typography">
     <ngx-app>Loading...</ngx-app>
 
     <style>
@@ -102,7 +104,26 @@
         <div class="blob blob-4"></div>
         <div class="blob blob-5"></div>
     </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCZq8Qs4csZn17iSXuM1vuds7YsWH7lr08",
+            authDomain: "student-management-5c7a0.firebaseapp.com",
+            databaseURL: "https://student-management-5c7a0.firebaseio.com",
+            projectId: "student-management-5c7a0",
+            storageBucket: "student-management-5c7a0.appspot.com",
+            messagingSenderId: "458058788498",
+            appId: "1:458058788498:web:b346844c126c054ee2404b"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: "ngx-registration",
@@ -21,15 +21,10 @@ export class RegistrationComponent {
 
   form: FormGroup;
   submitted = false;
-  courseData: any;
-  showMessages = {
-    error: false,
-    success: false,
-  };
-
   continueButtonDisabled = false;
-  selectedItem = 2;
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  selectedItem = 1;
+
+  constructor(private formBuilder: FormBuilder, private firestore: AngularFirestore) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -37,24 +32,39 @@ export class RegistrationComponent {
       lastName: ["", Validators.required],
       password: ["", [Validators.required, Validators.minLength(7)]],
       email: ["", [Validators.required, Validators.email]],
-      terms: [false, [Validators.requiredTrue]],
     });
+
+    this.getListOfCoursesFromFirebase();
   }
 
   get formControls() {
     return this.form.controls;
   }
 
-  onSubmit() {
+  onSubmitBtn() {
+   
     this.submitted = true;
+
+    for (var i in this.form.controls) {
+      this.form.controls[i].markAsTouched();
+    }
 
     if (this.form.invalid) {
       return;
     }
-
     this.continueButtonDisabled = true;
-    const registrationRequest = Object.assign(this.courseData, this.form.value);
+    const registrationRequest = Object.assign(this.form.value);
+    registrationRequest.selectedCourse = this.selectedItem;
+
+    console.log(registrationRequest);
+    this.continueButtonDisabled = false;
   }
 
-  viewTerms(): void {}
+/**
+ * This is the way we call Firebase to return the list of courses.
+ *
+ */
+  getListOfCoursesFromFirebase(){ 
+    return this.firestore.collection("courses") 
+ }
 }
