@@ -10,6 +10,7 @@ import { RegistrationComponent } from "./registration/registration.component";
 import { LoginComponent } from "./login/login.component";
 import { AdminComponent } from "./admin/admin.component";
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { StudentProfileComponent } from './student-profile/student-profile.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: "admin",
         component: AdminComponent,
+      },
+      {
+        path: "student-profile",
+        component: StudentProfileComponent,
       },
       {
         path: "contact-us",
@@ -62,6 +67,7 @@ const routes: Routes = [
     LoginComponent,
     AdminComponent,
     ContactUsComponent,
+    StudentProfileComponent,
   ],
 })
 export class PagesRoutingModule {}
