@@ -6,6 +6,8 @@ import { CoursesComponent } from './courses/courses.component';
 import { NbButtonModule, NbCardModule, NbLayoutModule } from '@nebular/theme';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +18,14 @@ const routes: Routes = [{
       component: CoursesComponent,
     },
     {
+      path: 'registration',
+      component: RegistrationComponent,
+    }, 
+    {
+      path: 'login',
+      component: LoginComponent,
+    },
+       {
       path: '',
       redirectTo: 'courses',
       pathMatch: 'full',
@@ -32,7 +42,9 @@ const routes: Routes = [{
     NbLayoutModule],
   exports: [RouterModule],
   declarations: [
-    CoursesComponent
+    CoursesComponent,
+    RegistrationComponent,
+    LoginComponent,
   ],
 })
 export class PagesRoutingModule {
