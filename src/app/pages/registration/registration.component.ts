@@ -53,6 +53,7 @@ export class RegistrationComponent {
     registrationRequest.selectedCourse = this.selectedItem;
 
     console.log(registrationRequest);
+    this.firestore.collection('users').doc(new Date().getTime().toString()).set(registrationRequest);
     this.continueButtonDisabled = false;
   }
 
