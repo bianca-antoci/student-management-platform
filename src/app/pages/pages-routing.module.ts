@@ -9,8 +9,9 @@ import { CommonModule } from "@angular/common";
 import { RegistrationComponent } from "./registration/registration.component";
 import { LoginComponent } from "./login/login.component";
 import { AdminComponent } from "./admin/admin.component";
-import { ContactUsComponent } from './contact-us/contact-us.component';
-import { StudentProfileComponent } from './student-profile/student-profile.component';
+import { ContactUsComponent } from "./contact-us/contact-us.component";
+import { StudentProfileComponent } from "./student-profile/student-profile.component";
+import { StudentHomeComponent } from "./student-home/student-home.component";
 
 const routes: Routes = [
   {
@@ -34,14 +35,18 @@ const routes: Routes = [
         component: AdminComponent,
       },
       {
-        path: "student-profile",
+        path: "student/profile",
         component: StudentProfileComponent,
+      },
+
+      {
+        path: "student/home",
+        component: StudentHomeComponent,
       },
       {
         path: "contact-us",
         component: ContactUsComponent,
       },
-
 
       {
         path: "",
@@ -68,6 +73,7 @@ const routes: Routes = [
     AdminComponent,
     ContactUsComponent,
     StudentProfileComponent,
+    StudentHomeComponent,
   ],
 })
 export class PagesRoutingModule {}
