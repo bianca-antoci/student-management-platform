@@ -1,13 +1,54 @@
-<div>
-    <nb-card *ngFor="let course of courses">
-        <nb-card-body class="space-between">
-            <div>
-                <h5>{{course.title}}</h5>
-                <div>{{course.desc}}</div>
+<nb-card class="content-padding">
+    <h5>
+        Your details
+    </h5>
+    <br>
+
+    <form [formGroup]="form" autocomplete="off">
+        <div>
+            <nb-select fullWidth shape="round" placeholder="Select Course" [(selected)]="selectedItem">
+
+                <nb-option value="0">CertHE in Skills</nb-option>
+                <nb-option value="1">Health and Social Care</nb-option>
+
+            </nb-select>
+        </div>
+        <br>
+        <div class="form-group">
+            <input type="text" fieldSize="large" nbInput fullWidth shape="round" placeholder="First name" [ngClass]="{ 'is-invalid': submitted && formControls.firstName.errors }" formControlName="firstName" />
+            <div *ngIf="submitted && formControls.firstName.errors" class="invalid-feedback">
+                <div *ngIf="formControls.firstName.errors.required">This field is required</div>
             </div>
-            <div>
-                <button (click)="onJoinClick(course)" nbButton status="primary">Join</button>
+        </div>
+        <div class="form-group">
+            <input type="text" nbInput fullWidth shape="round" fieldSize="large" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && formControls.lastName.errors }" placeholder="Last Name" />
+            <div *ngIf="submitted && formControls.lastName.errors" class="invalid-feedback">
+                <div *ngIf="formControls.lastName.errors.required">This field is required</div>
             </div>
-        </nb-card-body>
-    </nb-card>
-</div>
+        </div>
+        <div class="form-group">
+            <input type="text" fieldSize="large" shape="round" nbInput fullWidth formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }" />
+            <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
+                <div *ngIf="formControls.email.errors.required">This field is required</div>
+                <div *ngIf="formControls.email.errors.email">Email doesn't have a valid format</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="password" nbInput fullWidth fieldSize="large" shape="round" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }" formControlName="password" />
+            <div *ngIf="submitted && formControls.password.errors" class="invalid-feedback">
+                <div *ngIf="formControls.password.errors.required">This field is required</div>
+                <div *ngIf="formControls.password.errors.minlength">Password must have at least 7 characters</div>
+            </div>
+        </div>
+
+
+        <div *ngIf="submitted && formControls.terms.errors" style="padding: 7px; font-size: smaller; color: #dc3545">
+            <span *ngIf="formControls.terms.errors.required">You must accept the terms before continuing</span>
+        </div>
+    </form>
+    <br>
+    <button status="primary" class="buttonSize" [disabled]="continueButtonDisabled" nbButton size="medium" shape="round" (click)="onSubmit()">Register
+  now</button>
+    <br>
+</nb-card>

@@ -3,7 +3,18 @@ import { NgModule } from "@angular/core";
 
 import { PagesComponent } from "./pages.component";
 import { CoursesComponent } from "./courses/courses.component";
-import { NbButtonModule, NbCardModule, NbLayoutModule } from "@nebular/theme";
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbDatepickerModule,
+  NbIconModule,
+  NbInputModule,
+  NbLayoutModule,
+  NbListModule,
+  NbRadioModule,
+  NbSelectModule,
+} from "@nebular/theme";
 import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule } from "@angular/common";
 import { RegistrationComponent } from "./registration/registration.component";
@@ -12,6 +23,8 @@ import { AdminComponent } from "./admin/admin.component";
 import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { StudentProfileComponent } from "./student-profile/student-profile.component";
 import { StudentHomeComponent } from "./student-home/student-home.component";
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -64,6 +77,19 @@ const routes: Routes = [
     NbCardModule,
     NbButtonModule,
     NbLayoutModule,
+    NbSelectModule,
+    NbRadioModule,
+    NbButtonModule,
+    NbCheckboxModule,
+    NbListModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NbCardModule,
+    NbIconModule,
+    NbInputModule,
+    NbDatepickerModule,
+    NbCardModule,
   ],
   exports: [RouterModule],
   declarations: [
