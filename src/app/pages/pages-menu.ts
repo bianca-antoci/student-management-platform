@@ -3,7 +3,7 @@ import { NbMenuItem } from '@nebular/theme';
 export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Courses',
-    icon: 'home-outline',
+    icon: 'book-open-outline',
     link: '/pages/courses',
     home: true,
   },
@@ -14,17 +14,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Admin',
-    icon: 'home-outline',
+    icon: 'person-outline',
     link: '/pages/dashboard',
   },
   {
     title: 'Contact us',
-    icon: 'home-outline',
+    icon: 'phone-outline',
     link: '/pages/dashboard',
   },
   {
     title: 'Help',
-    icon: 'home-outline',
+    icon: 'headphones-outline',
     link: '/pages/dashboard',
   },
 ];

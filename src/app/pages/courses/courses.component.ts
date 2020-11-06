@@ -2,21 +2,26 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngx-courses',
+  styleUrls: ['courses.component.scss'],
   templateUrl: './courses.component.html',
 })
 export class CoursesComponent {
   courses = [
     {
-      title: "course A",
-      desc: "This is a test course A"
+      title: "CertHE in Skills",
+      desc: "this is a test"
     },
     {
-      title: "course B",
-      desc: "This is a test course B"
+      title: "Health and Social Care",
+      desc: "this is a test"
     }
   ];
 
   constructor() {
 
+  }
+
+  onJoinClick(course) {
+    console.log(course)
   }
 }
