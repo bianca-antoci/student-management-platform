@@ -31,6 +31,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Help',
     icon: 'question-mark-circle-outline',
-    link: '/pages/dashboard',
+    url: 'mailto:bianca.antoci96@gmail.com',
   },
 ];
