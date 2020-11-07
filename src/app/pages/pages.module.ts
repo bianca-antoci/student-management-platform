@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NbCardModule, NbMenuModule, NbTabsetModule } from '@nebular/theme';
+import { NbAccordionModule, NbCardModule, NbMenuModule, NbTabsetModule } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
     ThemeModule,
     NbMenuModule,
     NbCardModule,
+    NbAccordionModule,
   ],
   declarations: [
     PagesComponent,

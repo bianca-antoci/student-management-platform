@@ -18,7 +18,7 @@ export class CoursesComponent implements OnInit {
   }
 
   onJoinClick(course) {
-    window.location.href = 'pages/login';
+    window.location.href = 'pages/register';
   }
   /**
    * This is the way we call Firebase to return the list of courses.

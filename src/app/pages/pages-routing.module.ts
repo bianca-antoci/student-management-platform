@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { CoursesComponent } from './courses/courses.component';
 import {
+  NbAccordionModule,
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
@@ -96,6 +97,7 @@ const routes: Routes = [
     NbDatepickerModule,
     NbCardModule,
     NbTabsetModule,
+    NbAccordionModule,
   ],
   exports: [RouterModule],
   declarations: [

@@ -1,13 +1,21 @@
-<div>
-    <nb-card *ngFor="let course of courses">
-        <nb-card-body class="space-between">
-            <div>
-                <h5>{{course.title}}</h5>
-                <div>{{course.description}}</div>
-            </div>
-            <div>
-                <button (click)="onJoinClick(course)" nbButton status="primary">Join</button>
-            </div>
-        </nb-card-body>
-    </nb-card>
-</div>
+<nb-card class="titlepadding">
+    <div class="titlesize">Courses availabe in University of London</div>
+    <br>
+    <nb-accordion>
+        <nb-accordion-item *ngFor="let course of courses">
+            <nb-accordion-item-header>
+                <h7>{{course.title}}</h7>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+                <div class="space-between">
+                    <div>
+                        <div>{{course.description}}</div>
+                    </div>
+                    <div>
+                        <button (click)="onJoinClick(course)" nbButton status="primary">Join</button>
+                    </div>
+                </div>
+            </nb-accordion-item-body>
+        </nb-accordion-item>
+    </nb-accordion>
+</nb-card>

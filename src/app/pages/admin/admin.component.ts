@@ -28,18 +28,19 @@ export class AdminComponent implements OnInit {
   ];
   courses = [];
 
-
-  constructor(private firestore: AngularFirestore) {
-  }
+  constructor(private firestore: AngularFirestore) {}
 
   ngOnInit(): void {
-    this.getListOfCoursesFromFirebase().toPromise().then((results) => {
-      this.courses = results;
-    });
+    this.getListOfCoursesFromFirebase()
+      .toPromise()
+      .then((results) => {
+        this.courses = results;
+      });
   }
   getListOfCoursesFromFirebase() {
     const query = this.firestore.collection('courses');
-    return query.get().pipe(map((snapshot) => {
+    return query.get().pipe(
+      map((snapshot) => {
         const items = [];
         snapshot.docs.map((a) => {
           const data = a.data();
@@ -56,9 +57,7 @@ export class AdminComponent implements OnInit {
     student.accepted = true;
   }
   newCourse() {
-
+    window.location.href = 'pages/create-course';
   }
-  editCourse(course) {
-
-  }
+  editCourse(course) {}
 }
