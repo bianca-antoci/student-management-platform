@@ -71,8 +71,6 @@ const routes: Routes = [
         redirectTo: 'courses',
         pathMatch: 'full',
       },
-    
-
     ],
   },
 ];
