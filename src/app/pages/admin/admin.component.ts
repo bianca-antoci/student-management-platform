@@ -9,19 +9,19 @@ export class AdminComponent {
   students = [
     {
       name: 'Bianca',
-      accepted:false,
+      accepted: false,
     },
     {
       name: 'Adrian',
-      accepted:false,
+      accepted: false,
     },
     {
       name: 'Emilia',
-      accepted:false,
+      accepted: false,
     },
     {
       name: 'Florin',
-      accepted:false,
+      accepted: false,
     },
   ];
 
