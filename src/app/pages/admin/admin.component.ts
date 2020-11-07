@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/internal/operators/map';
 
@@ -7,7 +7,7 @@ import { map } from 'rxjs/internal/operators/map';
   styleUrls: ['admin.component.scss'],
   templateUrl: './admin.component.html',
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
   students = [
     {
       name: 'Bianca',
@@ -30,8 +30,8 @@ export class AdminComponent {
 
 
   constructor(private firestore: AngularFirestore) {
-
   }
+
   ngOnInit(): void {
     this.getListOfCoursesFromFirebase().toPromise().then((results) => {
       this.courses = results;
@@ -55,10 +55,10 @@ export class AdminComponent {
   acceptStudent(student) {
     student.accepted = true;
   }
-  newCourse(){
+  newCourse() {
 
   }
-  editCourse(course){
-    
+  editCourse(course) {
+
   }
 }
