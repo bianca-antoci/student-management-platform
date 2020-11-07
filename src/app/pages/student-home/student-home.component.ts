@@ -6,14 +6,38 @@ import { Component } from '@angular/core';
   templateUrl: './student-home.component.html',
 })
 export class StudentHomeComponent {
-  courses = [
+  modules = [
     {
-      title: 'CertHE in Skills',
-      desc: 'this is a test',
+      title: 'Module 1',
+      grade: '60/100',
     },
     {
-      title: 'Health and Social Care',
-      desc: 'this is a test',
+      title: 'Module 2',
+      grade: '60/100',
+    },
+    {
+      title: 'Module 3',
+      grade: '60/100',
+    },
+    {
+      title: 'Module 4',
+      grade: '60/100',
+    },
+    {
+      title: 'Module 5',
+      grade: '60/100',
+    },
+    {
+      title: 'Module 6',
+      grade: '60/100',
+    },
+    {
+      title: 'Module 7',
+      grade: '60/100',
+    },
+    {
+      title: 'Module 8',
+      grade: '60/100',
     },
   ];
 

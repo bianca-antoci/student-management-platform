@@ -1,12 +1,12 @@
 <div>
-    <nb-card *ngFor="let course of courses">
+    <nb-card *ngFor="let module of modules">
         <nb-card-body class="space-between">
             <div>
-                <h5>{{course.title}}</h5>
-                <div>{{course.desc}}</div>
+                <h5>{{module.title}}</h5>
+                <div>{{module.grade}}</div>
             </div>
             <div>
-                <button (click)="onJoinClick(course)" nbButton status="primary">Join</button>
+                <button (click)="onJoinClick(course)" nbButton status="primary">Re-take</button>
             </div>
         </nb-card-body>
     </nb-card>
