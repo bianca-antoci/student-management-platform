@@ -1,26 +1,72 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-contact-us',
   styleUrls: ['contact-us.component.scss'],
   templateUrl: './contact-us.component.html',
 })
-export class ContactUsComponent {
-  courses = [
-    {
-      title: 'CertHE in Skills',
-      desc: 'this is a test',
-    },
-    {
-      title: 'Health and Social Care',
-      desc: 'this is a test',
-    },
-  ];
+export class ContactUsComponent implements OnInit {
 
-  constructor() {
+  form: FormGroup;
+  submitted = false;
+  continueButtonDisabled = false;
+  selectedItem = 1;
+  firestoreCourses = [];
 
+  constructor(
+    private formBuilder: FormBuilder,
+    private firestore: AngularFirestore,
+  ) {}
+
+  ngOnInit() {
+    this.form = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(7)]],
+      email: ['', [Validators.required, Validators.email]],
+    });
+
+    this.getListOfCoursesFromFirebase().toPromise().then((results) => {
+      this.firestoreCourses = results;
+    });
   }
 
-  onJoinClick(course) {
+  get formControls() {
+    return this.form.controls;
+  }
+
+  onSubmitBtn() {
+    this.submitted = true;
+
+    if (this.form.invalid) {
+      return;
+    }
+    this.continueButtonDisabled = true;
+    const registrationRequest = Object.assign(this.form.value);
+    registrationRequest.selectedCourse = this.selectedItem;
+
+    this.firestore.collection('users').doc(new Date().getTime().toString()).set(registrationRequest);
+    this.continueButtonDisabled = false;
+  }
+
+  /**
+   * This is the way we call Firebase to return the list of courses.
+   *
+   */
+  getListOfCoursesFromFirebase() {
+    const query = this.firestore.collection('courses');
+    return query.get().pipe(map((snapshot) => {
+        const items = [];
+        snapshot.docs.map((a) => {
+          const data = a.data();
+          const id = a.id;
+          items.push({ id, ...data });
+        });
+        return items;
+      }),
+    );
   }
 }
