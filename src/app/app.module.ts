@@ -16,7 +16,7 @@ import {
   NbSidebarModule,
   NbToastrModule,
   NbWindowModule,
-  NbTabsetModule
+  NbTabsetModule,
 } from '@nebular/theme';
 import { environment } from '../environments/environment';
 
