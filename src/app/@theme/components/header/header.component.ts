@@ -1,21 +1,20 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   NbMediaBreakpointsService,
   NbMenuService,
   NbSidebarService,
   NbThemeService,
-} from "@nebular/theme";
+} from '@nebular/theme';
 
-import { UserData } from "../../../@core/data/users";
-import { LayoutService } from "../../../@core/utils";
-import { map, takeUntil } from "rxjs/operators";
-import { Subject, Observable } from "rxjs";
-import { RippleService } from "../../../@core/utils/ripple.service";
+import { UserData } from '../../../@core/data/users';
+import { LayoutService } from '../../../@core/utils';
+import { map, takeUntil } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
 
 @Component({
-  selector: "ngx-header",
-  styleUrls: ["./header.component.scss"],
-  templateUrl: "./header.component.html",
+  selector: 'ngx-header',
+  styleUrls: ['./header.component.scss'],
+  templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
@@ -23,11 +22,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userPictureOnly: boolean = false;
   user: any;
 
-  currentTheme = "dark";
+  currentTheme = 'dark';
 
   userMenu = [
-    { title: "Profile", link: "/pages/student/profile" },
-    { title: "Log out", link: "/pages/login" },
+    { title: 'Profile', link: '/pages/student/profile' },
+    { title: 'Log out', link: '/pages/login' },
   ];
 
   public constructor(
@@ -37,7 +36,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private userService: UserData,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
-    private rippleService: RippleService
   ) {}
 
   ngOnInit() {
@@ -52,10 +50,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .onMediaQueryChange()
       .pipe(
         map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe(
-        (isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl)
+        (isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl),
       );
   }
 
@@ -65,7 +63,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, "menu-sidebar");
+    this.sidebarService.toggle(true, 'menu-sidebar');
     this.layoutService.changeLayoutSize();
 
     return false;
@@ -78,7 +76,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
+      navigator.userAgent,
     );
   }
 }

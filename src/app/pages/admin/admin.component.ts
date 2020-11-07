@@ -8,13 +8,13 @@ import { Component } from '@angular/core';
 export class AdminComponent {
   courses = [
     {
-      title: "CertHE in Skills",
-      desc: "this is a test"
+      title: 'CertHE in Skills',
+      desc: 'this is a test',
     },
     {
-      title: "Health and Social Care",
-      desc: "this is a test"
-    }
+      title: 'Health and Social Care',
+      desc: 'this is a test',
+    },
   ];
 
   constructor() {
@@ -22,6 +22,5 @@ export class AdminComponent {
   }
 
   onJoinClick(course) {
-    console.log(course)
   }
 }

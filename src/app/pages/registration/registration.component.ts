@@ -1,14 +1,14 @@
-import { Component } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AngularFirestore } from "@angular/fire/firestore";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: "ngx-registration",
-  styleUrls: ["registration.component.scss"],
-  templateUrl: "./registration.component.html",
+  selector: 'ngx-registration',
+  styleUrls: ['registration.component.scss'],
+  templateUrl: './registration.component.html',
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
 
   form: FormGroup;
   submitted = false;
@@ -18,18 +18,18 @@ export class RegistrationComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
   ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required],
-      password: ["", [Validators.required, Validators.minLength(7)]],
-      email: ["", [Validators.required, Validators.email]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(7)]],
+      email: ['', [Validators.required, Validators.email]],
     });
 
-    this.getListOfCoursesFromFirebase().toPromise().then((results)=>{
+    this.getListOfCoursesFromFirebase().toPromise().then((results) => {
       this.firestoreCourses = results;
     });
   }
@@ -41,10 +41,6 @@ export class RegistrationComponent {
   onSubmitBtn() {
     this.submitted = true;
 
-    for (var i in this.form.controls) {
-      this.form.controls[i].markAsTouched();
-    }
-
     if (this.form.invalid) {
       return;
     }
@@ -52,7 +48,6 @@ export class RegistrationComponent {
     const registrationRequest = Object.assign(this.form.value);
     registrationRequest.selectedCourse = this.selectedItem;
 
-    console.log(registrationRequest);
     this.firestore.collection('users').doc(new Date().getTime().toString()).set(registrationRequest);
     this.continueButtonDisabled = false;
   }
@@ -62,16 +57,16 @@ export class RegistrationComponent {
    *
    */
   getListOfCoursesFromFirebase() {
-    let query = this.firestore.collection("courses");
+    const query = this.firestore.collection('courses');
     return query.get().pipe(map((snapshot) => {
-        let items = [];
+        const items = [];
         snapshot.docs.map((a) => {
           const data = a.data();
           const id = a.id;
           items.push({ id, ...data });
         });
         return items;
-      })
+      }),
     );
   }
 }

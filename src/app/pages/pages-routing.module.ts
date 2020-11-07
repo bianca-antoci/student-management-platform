@@ -1,8 +1,8 @@
-import { RouterModule, Routes } from "@angular/router";
-import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
 
-import { PagesComponent } from "./pages.component";
-import { CoursesComponent } from "./courses/courses.component";
+import { PagesComponent } from './pages.component';
+import { CoursesComponent } from './courses/courses.component';
 import {
   NbButtonModule,
   NbCardModule,
@@ -14,57 +14,56 @@ import {
   NbListModule,
   NbRadioModule,
   NbSelectModule,
-} from "@nebular/theme";
-import { BrowserModule } from "@angular/platform-browser";
-import { CommonModule } from "@angular/common";
-import { RegistrationComponent } from "./registration/registration.component";
-import { LoginComponent } from "./login/login.component";
-import { AdminComponent } from "./admin/admin.component";
-import { ContactUsComponent } from "./contact-us/contact-us.component";
-import { StudentProfileComponent } from "./student-profile/student-profile.component";
-import { StudentHomeComponent } from "./student-home/student-home.component";
+} from '@nebular/theme';
+import { CommonModule } from '@angular/common';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { AdminComponent } from './admin/admin.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { StudentProfileComponent } from './student-profile/student-profile.component';
+import { StudentHomeComponent } from './student-home/student-home.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: PagesComponent,
     children: [
       {
-        path: "courses",
+        path: 'courses',
         component: CoursesComponent,
       },
       {
-        path: "register",
+        path: 'register',
         component: RegistrationComponent,
       },
       {
-        path: "login",
+        path: 'login',
         component: LoginComponent,
       },
       {
-        path: "admin",
+        path: 'admin',
         component: AdminComponent,
       },
       {
-        path: "student/profile",
+        path: 'student/profile',
         component: StudentProfileComponent,
       },
 
       {
-        path: "student/home",
+        path: 'student/home',
         component: StudentHomeComponent,
       },
       {
-        path: "contact-us",
+        path: 'contact-us',
         component: ContactUsComponent,
       },
 
       {
-        path: "",
-        redirectTo: "courses",
-        pathMatch: "full",
+        path: '',
+        redirectTo: 'courses',
+        pathMatch: 'full',
       },
     ],
   },
