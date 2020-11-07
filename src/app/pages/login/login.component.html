@@ -1,13 +1,38 @@
-<div>
-    <nb-card *ngFor="let course of courses">
-        <nb-card-body class="space-between">
-            <div>
-                <h5>{{course.title}}</h5>
-                <div>{{course.desc}}</div>
-            </div>
-            <div>
-                <button (click)="onJoinClick(course)" nbButton status="primary">Join</button>
-            </div>
-        </nb-card-body>
-    </nb-card>
-</div>
+<nb-card class="cardpadding">
+    <div class="titlecontainer">
+        <h1 id="title">Login</h1>
+    </div>
+
+
+    <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
+        <p class="alert-title"><b>Oh snap!</b></p>
+        <ul class="alert-message-list">
+            <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+        </ul>
+    </nb-alert>
+
+    <form [formGroup]="signForm" aria-labelledby="title">
+
+        <div class="form-control-group">
+            <input nbInput fullWidth shape="round" [formControlName]="'email'" id="input-email" pattern=".+@.+\..+" placeholder="Email" fieldSize="large" autofocus>
+        </div>
+        <br>
+        <div class="form-control-group">
+            <input type="password" nbInput fullWidth shape="round" [formControlName]="'password'" id="input-password" placeholder="Password" fieldSize="large" autofocus>
+        </div>
+        <br>
+        <button nbButton fullWidth nbButton size="large" shape="round" status="primary" (click)="signIn()" [disabled]="submitted || !signForm.valid" [class.btn-pulse]="submitted">
+        CONTINUE
+      </button>
+    </form>
+    <br>
+    <div>
+        <span class="label-with-link">
+        <a class="forgot-password caption-2" routerLink="./forgot/reset">Forgot Password?</a>
+      </span>
+    </div>
+    <br>
+    <section class="another-action" aria-label="Register" style="text-align: center;">
+        New to the platform? <a class="text-link" routerLink="/pages/register">Create new account</a>
+    </section>
+</nb-card>
