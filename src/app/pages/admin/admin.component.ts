@@ -30,6 +30,6 @@ export class AdminComponent {
   }
 
   acceptStudent(student) {
-    student.accepted=true;
+    student.accepted = true;
   }
 }
