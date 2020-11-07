@@ -45,6 +45,4 @@ export class StudentHomeComponent {
 
   }
 
-  onJoinClick(course) {
-  }
 }

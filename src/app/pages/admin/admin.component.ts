@@ -6,14 +6,22 @@ import { Component } from '@angular/core';
   templateUrl: './admin.component.html',
 })
 export class AdminComponent {
-  courses = [
+  students = [
     {
-      title: 'CertHE in Skills',
-      desc: 'this is a test',
+      name: 'Bianca',
+      accepted:false,
     },
     {
-      title: 'Health and Social Care',
-      desc: 'this is a test',
+      name: 'Adrian',
+      accepted:false,
+    },
+    {
+      name: 'Emilia',
+      accepted:false,
+    },
+    {
+      name: 'Florin',
+      accepted:false,
     },
   ];
 
@@ -21,6 +29,7 @@ export class AdminComponent {
 
   }
 
-  onJoinClick(course) {
+  acceptStudent(student) {
+    student.accepted=true;
   }
 }

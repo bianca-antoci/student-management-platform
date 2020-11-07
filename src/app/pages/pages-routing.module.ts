@@ -14,6 +14,7 @@ import {
   NbListModule,
   NbRadioModule,
   NbSelectModule,
+  NbTabsetModule,
 } from '@nebular/theme';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from './registration/registration.component';
@@ -89,6 +90,7 @@ const routes: Routes = [
     NbInputModule,
     NbDatepickerModule,
     NbCardModule,
+    NbTabsetModule,
   ],
   exports: [RouterModule],
   declarations: [

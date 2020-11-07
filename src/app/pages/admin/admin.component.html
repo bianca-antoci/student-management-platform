@@ -1,1 +1,24 @@
-<div>Admin page</div>
+<nb-card>
+    <nb-card-body>
+
+        <nb-tabset fullWidth>
+            <nb-tab tabTitle="Courses">
+                <p>List of <strong>users</strong>.</p>
+            </nb-tab>
+            <nb-tab tabTitle="Students">
+                <nb-card *ngFor="let student of students">
+                    <nb-card-body class="space-between">
+                        <div>
+                            <h5>{{student.name}}</h5>
+                        </div>
+                        <div>
+                            <button *ngIf="student.accepted==false" (click)="acceptStudent(student)" nbButton status="primary">Accept</button>
+                            <nb-icon class="tick" icon="checkmark-outline" *ngIf="student.accepted==true">tick</nb-icon>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </nb-tab>
+        </nb-tabset>
+
+    </nb-card-body>
+</nb-card>

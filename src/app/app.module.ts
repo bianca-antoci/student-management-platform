@@ -16,6 +16,7 @@ import {
   NbSidebarModule,
   NbToastrModule,
   NbWindowModule,
+  NbTabsetModule
 } from '@nebular/theme';
 import { environment } from '../environments/environment';
 
@@ -39,6 +40,7 @@ import { environment } from '../environments/environment';
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     CoreModule.forRoot(),
+    NbTabsetModule,
   ],
   bootstrap: [AppComponent],
 })
