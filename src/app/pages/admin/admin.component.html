@@ -24,11 +24,11 @@
                 <nb-card *ngFor="let student of students">
                     <nb-card-body class="space-between">
                         <div>
-                            <h5>{{student.name}}</h5>
+                            <h5>{{student.firstName}} {{student.lastName}}</h5>
                         </div>
                         <div>
-                            <button *ngIf="student.accepted==false" (click)="acceptStudent(student)" nbButton status="primary">Accept</button>
-                            <nb-icon class="tick" icon="checkmark-outline" *ngIf="student.accepted==true">tick</nb-icon>
+                            <button *ngIf="student.isApproved==false" (click)="acceptStudent(student)" nbButton status="primary">Accept</button>
+                            <nb-icon class="tick" icon="checkmark-outline" *ngIf="student.isApproved==true">tick</nb-icon>
                         </div>
                     </nb-card-body>
                 </nb-card>

@@ -9,22 +9,6 @@ import { map } from 'rxjs/internal/operators/map';
 })
 export class AdminComponent implements OnInit {
   students = [
-    {
-      name: 'Bianca',
-      accepted: false,
-    },
-    {
-      name: 'Adrian',
-      accepted: false,
-    },
-    {
-      name: 'Emilia',
-      accepted: false,
-    },
-    {
-      name: 'Florin',
-      accepted: false,
-    },
   ];
   courses = [];
 
@@ -36,6 +20,28 @@ export class AdminComponent implements OnInit {
       .then((results) => {
         this.courses = results;
       });
+
+      this.getListOfUsersFromFirebase()
+      .toPromise()
+      .then((results) => {
+        this.students = results;
+      });
+
+  }
+  getListOfUsersFromFirebase() {
+    const query = this.firestore.collection('users');
+    return query.get().pipe(
+      map((snapshot) => {
+        const items = [];
+        snapshot.docs.map((a) => {
+          const data = a.data();
+
+          const id = a.id;
+          items.push({ id, ...data });
+        });
+        return items;
+      }),
+    );
   }
   getListOfCoursesFromFirebase() {
     const query = this.firestore.collection('courses');
@@ -54,8 +60,11 @@ export class AdminComponent implements OnInit {
   }
 
   acceptStudent(student) {
-    student.accepted = true;
+    student.isApproved = true;
+    const db = this.firestore;
+    db.collection('users').doc(student.id).update({isApproved: true});
   }
+
   newCourse() {
     window.location.href = 'pages/create-course';
   }
