@@ -28,6 +28,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { EditCourseComponent } from './edit-course/edit-course.component';
+import { AuthGuardService } from '../@core/utils';
 
 const routes: Routes = [
   {
@@ -49,21 +50,24 @@ const routes: Routes = [
       {
         path: 'admin',
         component: AdminComponent,
+        canActivate: [AuthGuardService],
       },
       {
         path: 'student/profile',
         component: StudentProfileComponent,
+        canActivate: [AuthGuardService],
       },
 
       {
         path: 'student/home',
         component: StudentHomeComponent,
+        canActivate: [AuthGuardService],
       },
       {
         path: 'admin/edit/course/:id',
         component: EditCourseComponent,
+        canActivate: [AuthGuardService],
       },
-      
       {
         path: 'contact-us',
         component: ContactUsComponent,
@@ -71,6 +75,7 @@ const routes: Routes = [
       {
         path: 'create-course',
         component: CreateCourseComponent,
+        canActivate: [AuthGuardService],
       },
 
       {

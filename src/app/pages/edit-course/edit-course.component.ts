@@ -16,7 +16,7 @@ export class EditCourseComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private firestore: AngularFirestore,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
