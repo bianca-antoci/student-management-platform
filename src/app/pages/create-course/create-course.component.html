@@ -6,16 +6,16 @@
 
     <form [formGroup]="form" autocomplete="off">
         <div class="form-group">
-            <input type="text" fieldSize="large" nbInput fullWidth shape="round" placeholder="Course name" [ngClass]="{ 'is-invalid': submitted && formControls.firstName.errors }" formControlName="firstName" />
-            <div *ngIf="submitted && formControls.firstName.errors" class="invalid-feedback">
-                <div *ngIf="formControls.firstName.errors.required">This field is required</div>
+            <input type="text" fieldSize="large" nbInput fullWidth shape="round" placeholder="Course name" [ngClass]="{ 'is-invalid': submitted && formControls.title.errors }" formControlName="title" />
+            <div *ngIf="submitted && formControls.title.errors" class="invalid-feedback">
+                <div *ngIf="formControls.title.errors.required">This field is required</div>
             </div>
         </div>
 
         <div class="form-group">
-            <input type="text" nbInput fullWidth shape="round" fieldSize="large" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && formControls.lastName.errors }" placeholder="Course details" />
-            <div *ngIf="submitted && formControls.lastName.errors" class="invalid-feedback">
-                <div *ngIf="formControls.lastName.errors.required">This field is required</div>
+            <input type="text" nbInput fullWidth shape="round" fieldSize="large" formControlName="description" [ngClass]="{ 'is-invalid': submitted && formControls.description.errors }" placeholder="Course details" />
+            <div *ngIf="submitted && formControls.description.errors" class="invalid-feedback">
+                <div *ngIf="formControls.description.errors.required">This field is required</div>
             </div>
         </div>
     </form>

@@ -1,20 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
-
 @Component({
   selector: 'ngx-create-course',
   styleUrls: ['create-course.component.scss'],
   templateUrl: './create-course.component.html',
 })
 export class CreateCourseComponent implements OnInit {
-
   form: FormGroup;
   submitted = false;
   continueButtonDisabled = false;
-  selectedItem = 1;
-  firestoreCourses = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,14 +18,8 @@ export class CreateCourseComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(7)]],
-      email: ['', [Validators.required, Validators.email]],
-    });
-
-    this.getListOfCoursesFromFirebase().toPromise().then((results) => {
-      this.firestoreCourses = results;
+      title: ['', Validators.required],
+      description: ['', Validators.required],
     });
   }
 
@@ -46,27 +35,13 @@ export class CreateCourseComponent implements OnInit {
     }
     this.continueButtonDisabled = true;
     const registrationRequest = Object.assign(this.form.value);
-    registrationRequest.selectedCourse = this.selectedItem;
 
-    this.firestore.collection('users').doc(new Date().getTime().toString()).set(registrationRequest);
-    this.continueButtonDisabled = false;
-  }
-
-  /**
-   * This is the way we call Firebase to return the list of courses.
-   *
-   */
-  getListOfCoursesFromFirebase() {
-    const query = this.firestore.collection('courses');
-    return query.get().pipe(map((snapshot) => {
-        const items = [];
-        snapshot.docs.map((a) => {
-          const data = a.data();
-          const id = a.id;
-          items.push({ id, ...data });
-        });
-        return items;
-      }),
-    );
+    this.firestore
+      .collection('courses')
+      .doc(new Date().getTime().toString())
+      .set(registrationRequest)
+      .then(() => {
+        window.location.href = 'pages/admin';
+      });
   }
 }
