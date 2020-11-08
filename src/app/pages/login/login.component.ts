@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
+    private firestore: AngularFirestore,
   ) {}
 
   ngOnInit() {
@@ -43,7 +45,6 @@ export class LoginComponent implements OnInit {
     if (email) {
       this.formRef['email'].setValue(email);
     }
-
   }
 
   get formRef() {
@@ -60,7 +61,24 @@ export class LoginComponent implements OnInit {
     this.showMessages.error = false;
     this.errors = [];
 
-    // const email = this.signForm.get('email').value;
-    // const pass = this.signForm.get('password').value;
+    const email = this.signForm.get('email').value;
+    const pass = this.signForm.get('password').value;
+
+
+    const dbRef = this.firestore.collection('users').ref;
+    dbRef
+      .where('email', '==', email)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          if (doc.data().password === pass) {
+            if (doc.data().isAdmin === true) {
+              window.location.href = 'pages/admin';
+            } else {
+              window.location.href = 'pages/student/home';
+            }
+          }
+        });
+      });
   }
 }

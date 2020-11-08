@@ -1,12 +1,34 @@
 <nb-card class="profile">
-    <h5>Name</h5>
-    <div>Antoci Bianca</div>
-    <br>
-    <h5>Email</h5>
-    <div>bianca.antoci96@gmail.com</div>
+    <form [formGroup]="form" autocomplete="off">
+        <br>
+
+        <div class="form-group">
+            <input type="text" fieldSize="large" nbInput fullWidth shape="round" placeholder="First name" [ngClass]="{ 'is-invalid': submitted && formControls.firstName.errors }" formControlName="firstName" />
+            <div *ngIf="submitted && formControls.firstName.errors" class="invalid-feedback">
+                <div *ngIf="formControls.firstName.errors.required">This field is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" nbInput fullWidth shape="round" fieldSize="large" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && formControls.lastName.errors }" placeholder="Last Name" />
+            <div *ngIf="submitted && formControls.lastName.errors" class="invalid-feedback">
+                <div *ngIf="formControls.lastName.errors.required">This field is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" fieldSize="large" shape="round" nbInput fullWidth formControlName="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }" />
+            <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
+                <div *ngIf="formControls.email.errors.required">This field is required</div>
+                <div *ngIf="formControls.email.errors.email">Email doesn't have a valid format</div>
+            </div>
+        </div>
+    </form>
     <br>
     <h5>Course</h5>
     <div>Health and Social Care
     </div>
+    <br>
+    <button status="primary" class="buttonSize" [disabled]="continueButtonDisabled" nbButton size="medium" shape="round" (click)="onSubmitBtn()">Save</button>
 
 </nb-card>
