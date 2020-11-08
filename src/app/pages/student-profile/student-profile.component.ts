@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/internal/operators/map';
@@ -8,8 +8,7 @@ import { map } from 'rxjs/internal/operators/map';
   styleUrls: ['student-profile.component.scss'],
   templateUrl: './student-profile.component.html',
 })
-export class StudentProfileComponent {
-  
+export class StudentProfileComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   continueButtonDisabled = false;
@@ -29,9 +28,11 @@ export class StudentProfileComponent {
       email: ['', [Validators.required, Validators.email]],
     });
 
-    this.getListOfCoursesFromFirebase().toPromise().then((results) => {
-      this.firestoreCourses = results;
-    });
+    this.getListOfCoursesFromFirebase()
+      .toPromise()
+      .then((results) => {
+        this.firestoreCourses = results;
+      });
   }
 
   get formControls() {
@@ -48,7 +49,10 @@ export class StudentProfileComponent {
     const registrationRequest = Object.assign(this.form.value);
     registrationRequest.selectedCourse = this.selectedItem;
 
-    this.firestore.collection('users').doc(new Date().getTime().toString()).set(registrationRequest);
+    this.firestore
+      .collection('users')
+      .doc(new Date().getTime().toString())
+      .set(registrationRequest);
     this.continueButtonDisabled = false;
   }
 
@@ -58,7 +62,8 @@ export class StudentProfileComponent {
    */
   getListOfCoursesFromFirebase() {
     const query = this.firestore.collection('courses');
-    return query.get().pipe(map((snapshot) => {
+    return query.get().pipe(
+      map((snapshot) => {
         const items = [];
         snapshot.docs.map((a) => {
           const data = a.data();
@@ -70,4 +75,3 @@ export class StudentProfileComponent {
     );
   }
 }
-
