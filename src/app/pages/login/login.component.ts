@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { AngularFirestore } from "@angular/fire/firestore";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "ngx-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
+  selector: 'ngx-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   signForm: FormGroup;
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
   ) {}
 
   ngOnInit() {
@@ -30,23 +30,23 @@ export class LoginComponent implements OnInit {
     window.localStorage.clear();
 
     this.signForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
 
     this.route.queryParams.subscribe((params) => {
-      if (params["message"] === "true") {
+      if (params['message'] === 'true') {
         this.errors.push(
-          "For security reasons we want to make sure that is really you"
+          'For security reasons we want to make sure that is really you',
         );
-        this.errors.push("Please login with your email and password");
+        this.errors.push('Please login with your email and password');
         this.showMessages.error = true;
       }
     });
 
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem('email');
     if (email) {
-      this.formRef["email"].setValue(email);
+      this.formRef['email'].setValue(email);
     }
   }
 
@@ -64,12 +64,12 @@ export class LoginComponent implements OnInit {
     this.showMessages.error = false;
     this.errors = [];
 
-    const email = this.signForm.get("email").value;
-    const pass = this.signForm.get("password").value;
+    const email = this.signForm.get('email').value;
+    const pass = this.signForm.get('password').value;
 
-    const dbRef = this.firestore.collection("users").ref;
+    const dbRef = this.firestore.collection('users').ref;
     dbRef
-      .where("email", "==", email)
+      .where('email', '==', email)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -77,15 +77,15 @@ export class LoginComponent implements OnInit {
             this.saveUserDetailes(doc.data());
 
             if (doc.data().isAdmin === true) {
-               window.location.href = "pages/admin";
+               window.location.href = 'pages/admin';
             } else {
-              window.location.href = "pages/student/home";
+              window.location.href = 'pages/student/home';
             }
           }
         });
       });
   }
   saveUserDetailes(user) {
-    window.localStorage.setItem("user", JSON.stringify(user));
+    window.localStorage.setItem('user', JSON.stringify(user));
   }
 }
