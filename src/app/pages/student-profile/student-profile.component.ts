@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs/internal/operators/map';
-
 @Component({
   selector: 'ngx-student-profile',
   styleUrls: ['student-profile.component.scss'],
@@ -12,8 +10,8 @@ export class StudentProfileComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   continueButtonDisabled = false;
-  selectedItem = 1;
-  firestoreCourses = [];
+  firestoreUser: any = {};
+  currentUserId = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,17 +19,23 @@ export class StudentProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // we read the user from storage
+    let currentUserFromStorage: any = window.localStorage.getItem('user');
+    currentUserFromStorage = JSON.parse(currentUserFromStorage);
+    this.currentUserId = currentUserFromStorage.id;
+
     this.form = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(7)]],
       email: ['', [Validators.required, Validators.email]],
     });
 
-    this.getListOfCoursesFromFirebase()
-      .toPromise()
-      .then((results) => {
-        this.firestoreCourses = results;
+    this.getListOfUserFromFirebase()
+      .then((user) => {
+        this.firestoreUser = user;
+        this.form.patchValue({email: user.email});
+        this.form.patchValue({firstName: user.firstName});
+        this.form.patchValue({lastName: user.lastName});
       });
   }
 
@@ -47,31 +51,22 @@ export class StudentProfileComponent implements OnInit {
     }
     this.continueButtonDisabled = true;
     const registrationRequest = Object.assign(this.form.value);
-    registrationRequest.selectedCourse = this.selectedItem;
+    this.firestoreUser.firstName = registrationRequest.firstName;
+    this.firestoreUser.lastName = registrationRequest.lastName;
+    this.firestoreUser.email = registrationRequest.email;
 
     this.firestore
       .collection('users')
-      .doc(new Date().getTime().toString())
-      .set(registrationRequest);
+      .doc(this.currentUserId)
+      .set(this.firestoreUser);
     this.continueButtonDisabled = false;
   }
 
-  /**
-   * This is the way we call Firebase to return the list of courses.
-   *
-   */
-  getListOfCoursesFromFirebase() {
-    const query = this.firestore.collection('courses');
-    return query.get().pipe(
-      map((snapshot) => {
-        const items = [];
-        snapshot.docs.map((a) => {
-          const data = a.data();
-          const id = a.id;
-          items.push({ id, ...data });
-        });
-        return items;
-      }),
-    );
+  getListOfUserFromFirebase() {
+    const query = this.firestore.collection('users').ref;
+    return query.doc(this.currentUserId).get()
+      .then((result) => {
+        return result.data();
+      });
   }
 }

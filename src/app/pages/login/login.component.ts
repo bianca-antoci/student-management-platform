@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           if (doc.data().password === pass) {
-            this.saveUserDetailes(doc.data());
+            this.saveUserDetailes(doc.id, doc.data());
 
             if (doc.data().isAdmin === true) {
                window.location.href = 'pages/admin';
@@ -85,7 +85,8 @@ export class LoginComponent implements OnInit {
         });
       });
   }
-  saveUserDetailes(user) {
+  saveUserDetailes(id, user) {
+    user.id = id;
     window.localStorage.setItem('user', JSON.stringify(user));
   }
 }
