@@ -27,6 +27,7 @@ import { StudentHomeComponent } from './student-home/student-home.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateCourseComponent } from './create-course/create-course.component';
+import { EditCourseComponent } from './edit-course/edit-course.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,11 @@ const routes: Routes = [
         path: 'student/home',
         component: StudentHomeComponent,
       },
+      {
+        path: 'admin/edit/course/:id',
+        component: EditCourseComponent,
+      },
+      
       {
         path: 'contact-us',
         component: ContactUsComponent,
@@ -109,6 +115,7 @@ const routes: Routes = [
     StudentProfileComponent,
     StudentHomeComponent,
     CreateCourseComponent,
+    EditCourseComponent,
   ],
 })
 export class PagesRoutingModule {}

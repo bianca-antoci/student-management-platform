@@ -14,7 +14,9 @@
                                 <div>{{course.description}}</div>
                             </div>
                             <div>
+                                <button ghost (click)="deleteCourse(course)" nbButton status="primary">Delete</button>
                                 <button (click)="editCourse(course)" nbButton status="primary">Edit</button>
+
                             </div>
                         </nb-card-body>
                     </nb-card>

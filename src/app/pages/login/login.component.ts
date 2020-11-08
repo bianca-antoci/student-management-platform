@@ -22,26 +22,15 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private firestore: AngularFirestore,
+    private firestore: AngularFirestore
   ) {}
 
   ngOnInit() {
-
     window.localStorage.clear();
 
     this.signForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-    });
-
-    this.route.queryParams.subscribe((params) => {
-      if (params['message'] === 'true') {
-        this.errors.push(
-          'For security reasons we want to make sure that is really you',
-        );
-        this.errors.push('Please login with your email and password');
-        this.showMessages.error = true;
-      }
     });
 
     const email = localStorage.getItem('email');
@@ -72,15 +61,27 @@ export class LoginComponent implements OnInit {
       .where('email', '==', email)
       .get()
       .then((querySnapshot) => {
+
+        // if no user exists
+        if (!querySnapshot || querySnapshot.empty) {
+          window.alert('Wrong email or password. Try again');
+          this.submitted = false;
+          return;
+        }
+
         querySnapshot.forEach((doc) => {
+          // if password is wrong
           if (doc.data().password === pass) {
             this.saveUserDetailes(doc.id, doc.data());
 
             if (doc.data().isAdmin === true) {
-               window.location.href = 'pages/admin';
+              window.location.href = 'pages/admin';
             } else {
               window.location.href = 'pages/student/home';
             }
+          } else {
+            window.alert('Wrong email or password. Try again');
+            this.submitted = false;
           }
         });
       });

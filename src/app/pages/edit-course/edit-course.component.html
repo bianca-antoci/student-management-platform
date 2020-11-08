@@ -1,0 +1,25 @@
+<nb-card class="content-padding">
+    <h5>
+        Edit course
+    </h5>
+    <br>
+
+    <form [formGroup]="form" autocomplete="off">
+        <div class="form-group">
+            <input type="text" fieldSize="large" nbInput fullWidth shape="round" placeholder="Course name" [ngClass]="{ 'is-invalid': submitted && formControls.title.errors }" formControlName="title" />
+            <div *ngIf="submitted && formControls.title.errors" class="invalid-feedback">
+                <div *ngIf="formControls.title.errors.required">This field is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" nbInput fullWidth shape="round" fieldSize="large" formControlName="description" [ngClass]="{ 'is-invalid': submitted && formControls.description.errors }" placeholder="Course details" />
+            <div *ngIf="submitted && formControls.description.errors" class="invalid-feedback">
+                <div *ngIf="formControls.description.errors.required">This field is required</div>
+            </div>
+        </div>
+    </form>
+    <br>
+    <button status="primary" class="buttonSize" [disabled]="continueButtonDisabled" nbButton size="medium" shape="round" (click)="onSubmitBtn()">Update course</button>
+    <br>
+</nb-card>

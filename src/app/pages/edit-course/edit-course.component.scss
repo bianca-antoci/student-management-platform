@@ -1,0 +1,17 @@
+@import '../../@theme/styles/themes';
+@include nb-install-component() {}
+
+.space-between {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.content-padding {
+    padding: 10px;
+}
+
+.buttonSize {
+    width: 200px;
+    margin: auto;
+}
