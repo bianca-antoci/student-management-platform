@@ -9,7 +9,6 @@ import { map } from 'rxjs/operators';
   templateUrl: './registration.component.html',
 })
 export class RegistrationComponent implements OnInit {
-
   form: FormGroup;
   submitted = false;
   continueButtonDisabled = false;
@@ -29,9 +28,11 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
     });
 
-    this.getListOfCoursesFromFirebase().toPromise().then((results) => {
-      this.firestoreCourses = results;
-    });
+    this.getListOfCoursesFromFirebase()
+      .toPromise()
+      .then((results) => {
+        this.firestoreCourses = results;
+      });
   }
 
   get formControls() {
@@ -47,8 +48,14 @@ export class RegistrationComponent implements OnInit {
     this.continueButtonDisabled = true;
     const registrationRequest = Object.assign(this.form.value);
     registrationRequest.selectedCourse = this.selectedItem;
-
-    this.firestore.collection('users').doc(new Date().getTime().toString()).set(registrationRequest);
+    registrationRequest.isApproved = false;
+    this.firestore
+      .collection('users')
+      .doc(new Date().getTime().toString())
+      .set(registrationRequest)
+      .then(() => {
+        window.location.href = 'pages/student/home';
+      });
     this.continueButtonDisabled = false;
   }
 
@@ -58,7 +65,8 @@ export class RegistrationComponent implements OnInit {
    */
   getListOfCoursesFromFirebase() {
     const query = this.firestore.collection('courses');
-    return query.get().pipe(map((snapshot) => {
+    return query.get().pipe(
+      map((snapshot) => {
         const items = [];
         snapshot.docs.map((a) => {
           const data = a.data();
