@@ -53,6 +53,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(
         (isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl),
       );
+
+    this.menuService.onItemClick().subscribe((event) => {
+      if (event.item.title === 'Log out') {
+        window.localStorage.clear();
+        this.user = null;
+      }
+    });
   }
 
   ngOnDestroy() {
